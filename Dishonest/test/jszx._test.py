@@ -1,4 +1,6 @@
 # 法院信用公示 url 测试
+import json
+
 import requests
 
 url = 'http://jszx.court.gov.cn/api/front/getPublishInfoPageList'
@@ -24,3 +26,4 @@ headers = {
 if __name__ == '__main__':
     response = requests.post(url, data=data, headers=headers)
     print(response.content.decode())
+    print(json.loads(response.text)["pageCount"])

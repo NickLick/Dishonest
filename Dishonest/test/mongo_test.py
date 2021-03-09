@@ -48,7 +48,6 @@ class DishonestPipeline(object):
         for item in cursor:
             lists.append(item)
         count = len(lists)
-        print(lists)
         if count == 0:
             # 如果没有数据，就插入数据
             self.col.insert_one(item)

@@ -13,7 +13,7 @@ from Dishonest.settings import MONGO_URL
 # 3.如果数据不存在，包存，否则，跳过
 
 
-class DishonestPipeline:
+class DishonestPipeline(object):
     def open_spider(self, spider):
         # 连接mongodb
         self.client = MongoClient(MONGO_URL)
@@ -42,14 +42,11 @@ class DishonestPipeline:
         for item in cursor:
             lists.append(item)
         count = len(lists)
-        print(lists)
         if count == 0:
             # 如果没有数据，就插入数据
-            self.col.insert_one(item)
-            spider.logger.info('插入数据')
+            spider.logger.info('插入数据:{}'.format(item))
+            self.col.insert_one(dict(item))
+
         else:
-            spider.logger.info('数据重复')
+            spider.logger.info('{}已存在,取消插入'.format(item))
 
-
-if __name__ == '__main__':
-    pass

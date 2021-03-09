@@ -1,7 +1,8 @@
 # 百度url测试
 import requests
 
-url = 'https://sp0.baidu.com/8aQDcjqpAAV3otqbppnN2DJv/api.php?resource_id=6899&query=失信人&pn=3&rn=10&from_mid=1&&oe=utf-8'
+url = 'https://sp0.baidu.com/8aQDcjqpAAV3otqbppnN2DJv/api.php?resource_id=6899&query=失信人&pn=3&rn=10&from_mid=1&&oe' \
+      '=utf-8 '
 
 headers = {
     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) '
@@ -14,6 +15,6 @@ headers = {
 
 if __name__ == '__main__':
     response = requests.get(url, headers=headers)
-    print(response.content.decode())
+    print(response.content.decode('GBK'))
     # card_num='3203251973****8020'
     # print(card_num[:10]+'****'+card_num[14:])

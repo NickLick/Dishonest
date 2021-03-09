@@ -26,7 +26,7 @@ class CourtSpider(scrapy.Spider):
         for page_no in range(page_count):
             data = {
                 'pageSize': "10",
-                'pageNo': str(page_count)
+                'pageNo': str(page_no)
             }
             yield scrapy.FormRequest(self.post_start_url, formdata=data, callback=self.parse_data)
 

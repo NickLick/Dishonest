@@ -4,7 +4,6 @@
 # https://docs.scrapy.org/en/latest/topics/items.html
 import scrapy
 
-
 class DishonestItem(scrapy.Item):
     # define the fields for your item here like:
     # 失信人名称
