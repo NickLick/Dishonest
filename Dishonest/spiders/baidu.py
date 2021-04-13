@@ -12,14 +12,15 @@ from Dishonest.items import DishonestItem
 class BaiduSpider(scrapy.Spider):
     name = 'baidu'
     allowed_domains = ['baidu.com']
-    start_urls = 'https://sp0.baidu.com/8aQDcjqpAAV3otqbppnN2DJv/api.php?resource_id=6899&query=失信人&pn=0&rn=10&oe=utf-8'
+    start_urls = ['https://sp0.baidu.com/8aQDcjqpAAV3otqbppnN2DJv/api.php?resource_id=6899&query=失信人&pn=0&rn=10&oe=utf-8']
 
     def parse(self, response):
-        # 把相应内容的json字符串，转换为字典
-        # 构建所有页面的请求
+        # 解析第一个请求
+        # 来构建所有的url
         results = json.loads(response.text)
-        # 去取出总数居条数
+        # 取出总数据条数
         disp_num = jsonpath(results, '$..dispNum')[0]
+        print(disp_num)
         # url模板
         url_pattern = 'https://sp0.baidu.com/8aQDcjqpAAV3otqbppnN2DJv/api.php?resource_id=6899&query=失信人&pn={}&rn=10&oe=utf-8'
         # 每隔10条数据，构建一个请求
@@ -30,10 +31,10 @@ class BaiduSpider(scrapy.Spider):
             yield scrapy.Request(url, callback=self.parse_data)
 
     def parse_data(self, response):
-        # 解析数据
-        # 响应数据
+        # 解析后续请求返回的数据
         datas = json.loads(response.text)
-        disp_datas = jsonpath(datas, '$..disp_data')[0]
+        disp_datas = jsonpath(datas, '$..disp_data')
+        print(disp_datas)
         print(len(disp_datas))
         # 遍历结果列表
         for disp_data in disp_datas:
